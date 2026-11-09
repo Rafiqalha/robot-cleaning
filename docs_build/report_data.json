@@ -1,0 +1,146 @@
+{
+  "replanning": [
+    {
+      "scenario": "S1",
+      "blocked": [
+        3,
+        2
+      ],
+      "base_cost": 23,
+      "final_cost": 23,
+      "replans": 2,
+      "collisions": 0,
+      "success": true,
+      "expanded": [
+        50,
+        39
+      ]
+    },
+    {
+      "scenario": "S3",
+      "blocked": [
+        6,
+        3
+      ],
+      "base_cost": 31,
+      "final_cost": 31,
+      "replans": 2,
+      "collisions": 0,
+      "success": true,
+      "expanded": [
+        144,
+        28
+      ]
+    },
+    {
+      "scenario": "S4",
+      "blocked": [
+        4,
+        5
+      ],
+      "base_cost": 38,
+      "final_cost": 40,
+      "replans": 2,
+      "collisions": 0,
+      "success": true,
+      "expanded": [
+        96,
+        114
+      ]
+    }
+  ],
+  "heuristics": {
+    "S1": {
+      "optimal": 23,
+      "manhattan": 21,
+      "max": 21,
+      "mst": 14
+    },
+    "S2": {
+      "optimal": 21,
+      "manhattan": 17,
+      "max": 17,
+      "mst": 12
+    },
+    "S3": {
+      "optimal": 31,
+      "manhattan": 25,
+      "max": 25,
+      "mst": 22
+    },
+    "S4": {
+      "optimal": 38,
+      "manhattan": 32,
+      "max": 32,
+      "mst": 32
+    }
+  },
+  "visit_orders": {
+    "S1": {
+      "astar": [
+        1,
+        3,
+        2
+      ],
+      "nn": [
+        1,
+        3,
+        2
+      ],
+      "astar_cost": 23,
+      "nn_cost": 23
+    },
+    "S2": {
+      "astar": [
+        2,
+        3,
+        1
+      ],
+      "nn": [
+        3,
+        1,
+        2
+      ],
+      "astar_cost": 21,
+      "nn_cost": 21
+    },
+    "S3": {
+      "astar": [
+        3,
+        2,
+        4,
+        5,
+        1
+      ],
+      "nn": [
+        5,
+        1,
+        2,
+        4,
+        3
+      ],
+      "astar_cost": 31,
+      "nn_cost": 31
+    },
+    "S4": {
+      "astar": [
+        5,
+        6,
+        3,
+        2,
+        1,
+        4
+      ],
+      "nn": [
+        4,
+        5,
+        1,
+        2,
+        3,
+        6
+      ],
+      "astar_cost": 38,
+      "nn_cost": 42
+    }
+  }
+}

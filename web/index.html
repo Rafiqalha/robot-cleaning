@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CleanBot 3D — Perencanaan Rute Robot Pembersih Kelas (A*)</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='9' y='12' width='46' height='36' rx='9' fill='%23D97757' stroke='%23fff' stroke-width='3'/%3E%3Cpath d='M22 25l9 6-9 6M42 25l-9 6 9 6' stroke='%23141413' stroke-width='3.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/hud.css">
+  <script type="importmap">
+  { "imports": { "three": "./vendor/three/build/three.module.js", "three/addons/": "./vendor/three/examples/jsm/" } }
+  </script>
+</head>
+<body class="loading">
+  <canvas id="view"></canvas>
+  <div id="loader">
+    <div class="loader-card">
+      <div class="loader-kicker">UAS ARTIFICIAL INTELLIGENCE · KELOMPOK 6</div>
+      <h1>CleanBot 3D</h1>
+      <p>Perencanaan Rute Robot Pembersih di Ruang Kelas dengan algoritma A*</p>
+      <div class="bar"><i id="loader-bar"></i></div>
+      <div class="loader-msg" id="loader-msg">Memuat aset 3D…</div>
+    </div>
+  </div>
+  <div id="hud"></div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

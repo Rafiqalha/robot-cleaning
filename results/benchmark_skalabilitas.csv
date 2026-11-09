@@ -1,0 +1,281 @@
+k,seed,config,label,cost,expanded,time_ms,state_space,success,opt
+2,0,bfs,BFS,20,181,0.388,224,True,20
+2,0,ucs,UCS,20,193,0.507,224,True,20
+2,0,astar_manhattan,A* (Manhattan),20,20,0.137,224,True,20
+2,0,astar_max,A* (Jarak-max),20,20,0.17,224,True,20
+2,0,astar_mst,A* (MST),20,43,0.218,224,True,20
+2,0,greedy_mst,Greedy,20,44,0.228,224,True,20
+2,0,nn,Nearest-Neighbor,20,0,0.054,224,True,20
+2,1,bfs,BFS,20,210,0.391,232,True,20
+2,1,ucs,UCS,20,223,0.598,232,True,20
+2,1,astar_manhattan,A* (Manhattan),20,20,0.344,232,True,20
+2,1,astar_max,A* (Jarak-max),20,20,0.324,232,True,20
+2,1,astar_mst,A* (MST),20,31,0.239,232,True,20
+2,1,greedy_mst,Greedy,20,26,0.164,232,True,20
+2,1,nn,Nearest-Neighbor,20,0,0.063,232,True,20
+2,2,bfs,BFS,24,201,0.465,232,True,24
+2,2,ucs,UCS,24,211,0.587,232,True,24
+2,2,astar_manhattan,A* (Manhattan),24,57,0.306,232,True,24
+2,2,astar_max,A* (Jarak-max),24,44,0.266,232,True,24
+2,2,astar_mst,A* (MST),24,68,0.305,232,True,24
+2,2,greedy_mst,Greedy,24,30,0.148,232,True,24
+2,2,nn,Nearest-Neighbor,24,0,0.063,232,True,24
+2,3,bfs,BFS,12,93,0.174,232,True,12
+2,3,ucs,UCS,12,112,0.277,232,True,12
+2,3,astar_manhattan,A* (Manhattan),12,12,0.071,232,True,12
+2,3,astar_max,A* (Jarak-max),12,12,0.127,232,True,12
+2,3,astar_mst,A* (MST),12,13,0.082,232,True,12
+2,3,greedy_mst,Greedy,12,13,0.078,232,True,12
+2,3,nn,Nearest-Neighbor,12,0,0.028,232,True,12
+2,4,bfs,BFS,22,230,0.458,232,True,22
+2,4,ucs,UCS,22,231,0.567,232,True,22
+2,4,astar_manhattan,A* (Manhattan),22,39,0.202,232,True,22
+2,4,astar_max,A* (Jarak-max),22,37,0.229,232,True,22
+2,4,astar_mst,A* (MST),22,32,0.193,232,True,22
+2,4,greedy_mst,Greedy,22,27,0.208,232,True,22
+2,4,nn,Nearest-Neighbor,22,0,0.079,232,True,22
+3,0,bfs,BFS,21,361,0.663,448,True,21
+3,0,ucs,UCS,21,385,1.065,448,True,21
+3,0,astar_manhattan,A* (Manhattan),21,21,0.147,448,True,21
+3,0,astar_max,A* (Jarak-max),21,21,0.206,448,True,21
+3,0,astar_mst,A* (MST),21,68,0.341,448,True,21
+3,0,greedy_mst,Greedy,23,49,0.246,448,True,21
+3,0,nn,Nearest-Neighbor,23,0,0.062,448,True,21
+3,1,bfs,BFS,23,452,0.863,464,True,23
+3,1,ucs,UCS,23,460,1.185,464,True,23
+3,1,astar_manhattan,A* (Manhattan),23,35,0.203,464,True,23
+3,1,astar_max,A* (Jarak-max),23,28,0.232,464,True,23
+3,1,astar_mst,A* (MST),23,40,0.245,464,True,23
+3,1,greedy_mst,Greedy,23,29,0.191,464,True,23
+3,1,nn,Nearest-Neighbor,23,0,0.064,464,True,23
+3,2,bfs,BFS,27,411,1.076,464,True,27
+3,2,ucs,UCS,27,435,1.107,464,True,27
+3,2,astar_manhattan,A* (Manhattan),27,78,0.358,464,True,27
+3,2,astar_max,A* (Jarak-max),27,73,0.4,464,True,27
+3,2,astar_mst,A* (MST),27,103,0.492,464,True,27
+3,2,greedy_mst,Greedy,27,33,0.178,464,True,27
+3,2,nn,Nearest-Neighbor,27,0,0.068,464,True,27
+3,3,bfs,BFS,21,392,0.747,464,True,21
+3,3,ucs,UCS,21,419,1.064,464,True,21
+3,3,astar_manhattan,A* (Manhattan),21,44,0.244,464,True,21
+3,3,astar_max,A* (Jarak-max),21,34,0.247,464,True,21
+3,3,astar_mst,A* (MST),21,45,0.251,464,True,21
+3,3,greedy_mst,Greedy,21,25,0.174,464,True,21
+3,3,nn,Nearest-Neighbor,21,0,0.087,464,True,21
+3,4,bfs,BFS,29,461,0.825,464,True,29
+3,4,ucs,UCS,29,463,1.201,464,True,29
+3,4,astar_manhattan,A* (Manhattan),29,33,0.193,464,True,29
+3,4,astar_max,A* (Jarak-max),29,29,0.244,464,True,29
+3,4,astar_mst,A* (MST),29,55,0.31,464,True,29
+3,4,greedy_mst,Greedy,33,42,0.235,464,True,29
+3,4,nn,Nearest-Neighbor,33,0,0.076,464,True,29
+4,0,bfs,BFS,28,853,1.573,896,True,28
+4,0,ucs,UCS,28,861,2.436,896,True,28
+4,0,astar_manhattan,A* (Manhattan),28,112,0.627,896,True,28
+4,0,astar_max,A* (Jarak-max),28,100,0.599,896,True,28
+4,0,astar_mst,A* (MST),28,85,0.442,896,True,28
+4,0,greedy_mst,Greedy,30,56,0.3,896,True,28
+4,0,nn,Nearest-Neighbor,30,0,0.074,896,True,28
+4,1,bfs,BFS,24,902,1.594,928,True,24
+4,1,ucs,UCS,24,922,2.434,928,True,24
+4,1,astar_manhattan,A* (Manhattan),24,24,0.185,928,True,24
+4,1,astar_max,A* (Jarak-max),24,24,0.26,928,True,24
+4,1,astar_mst,A* (MST),24,35,0.223,928,True,24
+4,1,greedy_mst,Greedy,24,30,0.208,928,True,24
+4,1,nn,Nearest-Neighbor,24,0,0.062,928,True,24
+4,2,bfs,BFS,28,831,1.408,928,True,28
+4,2,ucs,UCS,28,875,2.122,928,True,28
+4,2,astar_manhattan,A* (Manhattan),28,110,0.534,928,True,28
+4,2,astar_max,A* (Jarak-max),28,102,0.561,928,True,28
+4,2,astar_mst,A* (MST),28,41,0.227,928,True,28
+4,2,greedy_mst,Greedy,34,40,0.228,928,True,28
+4,2,nn,Nearest-Neighbor,28,0,0.073,928,True,28
+4,3,bfs,BFS,30,916,1.798,928,True,30
+4,3,ucs,UCS,30,924,2.385,928,True,30
+4,3,astar_manhattan,A* (Manhattan),30,253,1.36,928,True,30
+4,3,astar_max,A* (Jarak-max),30,153,0.866,928,True,30
+4,3,astar_mst,A* (MST),30,115,0.848,928,True,30
+4,3,greedy_mst,Greedy,30,34,0.327,928,True,30
+4,3,nn,Nearest-Neighbor,30,0,0.086,928,True,30
+4,4,bfs,BFS,34,926,2.039,928,True,34
+4,4,ucs,UCS,34,927,2.384,928,True,34
+4,4,astar_manhattan,A* (Manhattan),34,152,0.752,928,True,34
+4,4,astar_max,A* (Jarak-max),34,134,1.318,928,True,34
+4,4,astar_mst,A* (MST),34,60,0.538,928,True,34
+4,4,greedy_mst,Greedy,36,44,0.344,928,True,34
+4,4,nn,Nearest-Neighbor,36,0,0.101,928,True,34
+5,0,bfs,BFS,29,1715,3.267,1792,True,29
+5,0,ucs,UCS,29,1725,4.695,1792,True,29
+5,0,astar_manhattan,A* (Manhattan),29,180,0.999,1792,True,29
+5,0,astar_max,A* (Jarak-max),29,153,0.912,1792,True,29
+5,0,astar_mst,A* (MST),29,148,0.811,1792,True,29
+5,0,greedy_mst,Greedy,31,68,0.387,1792,True,29
+5,0,nn,Nearest-Neighbor,31,0,0.089,1792,True,29
+5,1,bfs,BFS,25,1820,3.587,1856,True,25
+5,1,ucs,UCS,25,1848,5.401,1856,True,25
+5,1,astar_manhattan,A* (Manhattan),25,25,0.216,1856,True,25
+5,1,astar_max,A* (Jarak-max),25,25,0.327,1856,True,25
+5,1,astar_mst,A* (MST),25,53,0.337,1856,True,25
+5,1,greedy_mst,Greedy,25,44,0.269,1856,True,25
+5,1,nn,Nearest-Neighbor,25,0,0.068,1856,True,25
+5,2,bfs,BFS,39,1844,3.336,1856,True,39
+5,2,ucs,UCS,39,1854,5.226,1856,True,39
+5,2,astar_manhattan,A* (Manhattan),39,345,2.445,1856,True,39
+5,2,astar_max,A* (Jarak-max),39,336,1.712,1856,True,39
+5,2,astar_mst,A* (MST),39,137,0.783,1856,True,39
+5,2,greedy_mst,Greedy,53,86,0.448,1856,True,39
+5,2,nn,Nearest-Neighbor,47,0,0.111,1856,True,39
+5,3,bfs,BFS,37,1843,3.571,1856,True,37
+5,3,ucs,UCS,37,1852,5.523,1856,True,37
+5,3,astar_manhattan,A* (Manhattan),37,376,2.091,1856,True,37
+5,3,astar_max,A* (Jarak-max),37,192,1.056,1856,True,37
+5,3,astar_mst,A* (MST),37,198,1.1,1856,True,37
+5,3,greedy_mst,Greedy,37,46,0.302,1856,True,37
+5,3,nn,Nearest-Neighbor,41,0,0.093,1856,True,37
+5,4,bfs,BFS,35,1853,4.027,1856,True,35
+5,4,ucs,UCS,35,1855,5.113,1856,True,35
+5,4,astar_manhattan,A* (Manhattan),35,189,1.317,1856,True,35
+5,4,astar_max,A* (Jarak-max),35,165,0.994,1856,True,35
+5,4,astar_mst,A* (MST),35,66,0.453,1856,True,35
+5,4,greedy_mst,Greedy,35,40,0.263,1856,True,35
+5,4,nn,Nearest-Neighbor,37,0,0.087,1856,True,35
+6,0,bfs,BFS,30,3438,6.912,3584,True,30
+6,0,ucs,UCS,30,3453,10.631,3584,True,30
+6,0,astar_manhattan,A* (Manhattan),30,207,1.269,3584,True,30
+6,0,astar_max,A* (Jarak-max),30,163,1.055,3584,True,30
+6,0,astar_mst,A* (MST),30,149,0.836,3584,True,30
+6,0,greedy_mst,Greedy,32,69,0.415,3584,True,30
+6,0,nn,Nearest-Neighbor,32,0,0.083,3584,True,30
+6,1,bfs,BFS,30,3704,7.394,3712,True,30
+6,1,ucs,UCS,30,3711,11.494,3712,True,30
+6,1,astar_manhattan,A* (Manhattan),30,167,1.027,3712,True,30
+6,1,astar_max,A* (Jarak-max),30,167,1.006,3712,True,30
+6,1,astar_mst,A* (MST),30,66,0.408,3712,True,30
+6,1,greedy_mst,Greedy,36,56,0.326,3712,True,30
+6,1,nn,Nearest-Neighbor,32,0,0.078,3712,True,30
+6,2,bfs,BFS,40,3699,6.541,3712,True,40
+6,2,ucs,UCS,40,3710,10.489,3712,True,40
+6,2,astar_manhattan,A* (Manhattan),40,543,2.668,3712,True,40
+6,2,astar_max,A* (Jarak-max),40,531,2.463,3712,True,40
+6,2,astar_mst,A* (MST),40,182,1.275,3712,True,40
+6,2,greedy_mst,Greedy,54,87,0.533,3712,True,40
+6,2,nn,Nearest-Neighbor,48,0,0.113,3712,True,40
+6,3,bfs,BFS,44,3710,6.56,3712,True,44
+6,3,ucs,UCS,44,3711,10.667,3712,True,44
+6,3,astar_manhattan,A* (Manhattan),44,1302,7.279,3712,True,44
+6,3,astar_max,A* (Jarak-max),44,603,3.198,3712,True,44
+6,3,astar_mst,A* (MST),44,428,2.064,3712,True,44
+6,3,greedy_mst,Greedy,44,54,0.361,3712,True,44
+6,3,nn,Nearest-Neighbor,48,0,0.094,3712,True,44
+6,4,bfs,BFS,36,3708,6.479,3712,True,36
+6,4,ucs,UCS,36,3711,10.11,3712,True,36
+6,4,astar_manhattan,A* (Manhattan),36,274,1.53,3712,True,36
+6,4,astar_max,A* (Jarak-max),36,239,1.344,3712,True,36
+6,4,astar_mst,A* (MST),36,96,0.636,3712,True,36
+6,4,greedy_mst,Greedy,36,41,0.258,3712,True,36
+6,4,nn,Nearest-Neighbor,38,0,0.08,3712,True,36
+7,0,bfs,BFS,31,6887,12.559,7168,True,31
+7,0,ucs,UCS,31,6909,20.948,7168,True,31
+7,0,astar_manhattan,A* (Manhattan),31,208,1.242,7168,True,31
+7,0,astar_max,A* (Jarak-max),31,164,1.044,7168,True,31
+7,0,astar_mst,A* (MST),31,126,0.776,7168,True,31
+7,0,greedy_mst,Greedy,33,70,0.423,7168,True,31
+7,0,nn,Nearest-Neighbor,33,0,0.078,7168,True,31
+7,1,bfs,BFS,31,7178,12.532,7424,True,31
+7,1,ucs,UCS,31,7309,21.843,7424,True,31
+7,1,astar_manhattan,A* (Manhattan),31,234,1.462,7424,True,31
+7,1,astar_max,A* (Jarak-max),31,234,1.362,7424,True,31
+7,1,astar_mst,A* (MST),31,68,0.443,7424,True,31
+7,1,greedy_mst,Greedy,33,41,0.284,7424,True,31
+7,1,nn,Nearest-Neighbor,33,0,0.076,7424,True,31
+7,2,bfs,BFS,43,7419,13.031,7424,True,43
+7,2,ucs,UCS,43,7423,19.895,7424,True,43
+7,2,astar_manhattan,A* (Manhattan),43,1379,8.103,7424,True,43
+7,2,astar_max,A* (Jarak-max),43,1309,6.56,7424,True,43
+7,2,astar_mst,A* (MST),43,535,2.814,7424,True,43
+7,2,greedy_mst,Greedy,61,102,0.531,7424,True,43
+7,2,nn,Nearest-Neighbor,45,0,0.098,7424,True,43
+7,3,bfs,BFS,45,7420,13.727,7424,True,45
+7,3,ucs,UCS,45,7423,22.547,7424,True,45
+7,3,astar_manhattan,A* (Manhattan),45,2055,12.929,7424,True,45
+7,3,astar_max,A* (Jarak-max),45,852,4.698,7424,True,45
+7,3,astar_mst,A* (MST),45,446,2.396,7424,True,45
+7,3,greedy_mst,Greedy,49,65,0.563,7424,True,45
+7,3,nn,Nearest-Neighbor,49,0,0.105,7424,True,45
+7,4,bfs,BFS,37,7418,15.248,7424,True,37
+7,4,ucs,UCS,37,7423,22.145,7424,True,37
+7,4,astar_manhattan,A* (Manhattan),37,387,2.475,7424,True,37
+7,4,astar_max,A* (Jarak-max),37,327,2.329,7424,True,37
+7,4,astar_mst,A* (MST),37,73,0.523,7424,True,37
+7,4,greedy_mst,Greedy,37,42,0.291,7424,True,37
+7,4,nn,Nearest-Neighbor,39,0,0.083,7424,True,37
+8,0,bfs,BFS,32,13796,29.36,14336,True,32
+8,0,ucs,UCS,32,13821,50.82,14336,True,32
+8,0,astar_manhattan,A* (Manhattan),32,306,2.372,14336,True,32
+8,0,astar_max,A* (Jarak-max),32,214,1.835,14336,True,32
+8,0,astar_mst,A* (MST),32,110,0.733,14336,True,32
+8,0,greedy_mst,Greedy,40,46,0.346,14336,True,32
+8,0,nn,Nearest-Neighbor,34,0,0.081,14336,True,32
+8,1,bfs,BFS,34,14639,30.182,14848,True,34
+8,1,ucs,UCS,34,14761,49.337,14848,True,34
+8,1,astar_manhattan,A* (Manhattan),34,634,4.228,14848,True,34
+8,1,astar_max,A* (Jarak-max),34,603,3.344,14848,True,34
+8,1,astar_mst,A* (MST),34,141,0.82,14848,True,34
+8,1,greedy_mst,Greedy,38,43,0.311,14848,True,34
+8,1,nn,Nearest-Neighbor,36,0,0.079,14848,True,34
+8,2,bfs,BFS,44,14841,26.354,14848,True,44
+8,2,ucs,UCS,44,14847,47.44,14848,True,44
+8,2,astar_manhattan,A* (Manhattan),44,2108,14.157,14848,True,44
+8,2,astar_max,A* (Jarak-max),44,2018,11.315,14848,True,44
+8,2,astar_mst,A* (MST),44,832,4.589,14848,True,44
+8,2,greedy_mst,Greedy,54,154,0.825,14848,True,44
+8,2,nn,Nearest-Neighbor,52,0,0.105,14848,True,44
+8,3,bfs,BFS,46,14843,27.198,14848,True,46
+8,3,ucs,UCS,46,14847,42.72,14848,True,46
+8,3,astar_manhattan,A* (Manhattan),46,3072,18.316,14848,True,46
+8,3,astar_max,A* (Jarak-max),46,1156,6.498,14848,True,46
+8,3,astar_mst,A* (MST),46,444,2.406,14848,True,46
+8,3,greedy_mst,Greedy,46,51,0.369,14848,True,46
+8,3,nn,Nearest-Neighbor,46,0,0.152,14848,True,46
+8,4,bfs,BFS,40,14842,26.661,14848,True,40
+8,4,ucs,UCS,40,14847,42.889,14848,True,40
+8,4,astar_manhattan,A* (Manhattan),40,1157,7.2,14848,True,40
+8,4,astar_max,A* (Jarak-max),40,1042,5.66,14848,True,40
+8,4,astar_mst,A* (MST),40,134,1.054,14848,True,40
+8,4,greedy_mst,Greedy,40,46,0.361,14848,True,40
+8,4,nn,Nearest-Neighbor,40,0,0.083,14848,True,40
+9,0,bfs,BFS,35,27620,58.678,28672,True,35
+9,0,ucs,UCS,35,27645,89.731,28672,True,35
+9,0,astar_manhattan,A* (Manhattan),35,319,2.479,28672,True,35
+9,0,astar_max,A* (Jarak-max),35,221,1.843,28672,True,35
+9,0,astar_mst,A* (MST),35,113,0.82,28672,True,35
+9,0,greedy_mst,Greedy,43,49,0.401,28672,True,35
+9,0,nn,Nearest-Neighbor,41,0,0.085,28672,True,35
+9,1,bfs,BFS,39,29593,59.889,29696,True,39
+9,1,ucs,UCS,39,29663,118.738,29696,True,39
+9,1,astar_manhattan,A* (Manhattan),39,1540,12.992,29696,True,39
+9,1,astar_max,A* (Jarak-max),39,1493,10.955,29696,True,39
+9,1,astar_mst,A* (MST),39,188,1.36,29696,True,39
+9,1,greedy_mst,Greedy,43,48,0.391,29696,True,39
+9,1,nn,Nearest-Neighbor,43,0,0.107,29696,True,39
+9,2,bfs,BFS,45,29687,65.525,29696,True,45
+9,2,ucs,UCS,45,29695,113.133,29696,True,45
+9,2,astar_manhattan,A* (Manhattan),45,3643,24.038,29696,True,45
+9,2,astar_max,A* (Jarak-max),45,3505,20.554,29696,True,45
+9,2,astar_mst,A* (MST),45,1409,9.738,29696,True,45
+9,2,greedy_mst,Greedy,55,155,0.924,29696,True,45
+9,2,nn,Nearest-Neighbor,53,0,0.109,29696,True,45
+9,3,bfs,BFS,47,29689,60.012,29696,True,47
+9,3,ucs,UCS,47,29695,103.956,29696,True,47
+9,3,astar_manhattan,A* (Manhattan),47,4834,31.982,29696,True,47
+9,3,astar_max,A* (Jarak-max),47,1595,9.717,29696,True,47
+9,3,astar_mst,A* (MST),47,407,2.674,29696,True,47
+9,3,greedy_mst,Greedy,47,52,0.422,29696,True,47
+9,3,nn,Nearest-Neighbor,47,0,0.094,29696,True,47
+9,4,bfs,BFS,43,29691,58.767,29696,True,43
+9,4,ucs,UCS,43,29695,138.334,29696,True,43
+9,4,astar_manhattan,A* (Manhattan),43,2090,13.904,29696,True,43
+9,4,astar_max,A* (Jarak-max),43,1918,11.842,29696,True,43
+9,4,astar_mst,A* (MST),43,231,2.452,29696,True,43
+9,4,greedy_mst,Greedy,43,49,0.397,29696,True,43
+9,4,nn,Nearest-Neighbor,45,0,0.094,29696,True,43

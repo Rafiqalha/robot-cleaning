@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Node (pembuat PPT/laporan: npm --prefix docs_build install)
+node_modules/
+
+# Keluaran sementara pembuat dokumen / perekam video
+docs_build/frames/
+docs_build/qa/
+docs_build/img/
+docs_build/deck_img/
+docs_build/report_img/
+*.tmp
+
+# Video 1080p (40 MB) dapat dibuat ulang: python tools/record_demo.py
+docs/demo_S4.mp4
+
+# Sistem operasi / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

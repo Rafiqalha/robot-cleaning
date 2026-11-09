@@ -1,0 +1,263 @@
+// Isi laporan bagian A: bagian depan, BAB I (Pendahuluan), BAB II (Landasan Teori), BAB III (Metodologi dan Perancangan).
+const H = (t, o = {}) => ({ t: 'h1', text: t, ...o });
+const H2 = (t) => ({ t: 'h2', text: t });
+const H3 = (t) => ({ t: 'h3', text: t });
+const P = (t, opts) => ({ t: 'p', text: t, opts });
+const BUL = (...items) => ({ t: 'bul', items });
+const NUM = (...items) => ({ t: 'num', items });
+
+module.exports = function partA(D) {
+  const { fmt, g, spaces } = D;
+
+  // ===================================================================== BAGIAN DEPAN
+  const front = [
+    { t: 'front', text: 'Kata Pengantar' },
+    P('Puji syukur penulis panjatkan ke hadirat Allah SWT atas rahmat dan karunia-Nya sehingga Laporan Mini Project mata kuliah Kecerdasan Buatan (__Artificial Intelligence__) yang berjudul “Perencanaan Rute Robot Pembersih di Ruang Kelas Menggunakan Algoritma A* dengan Simulasi 3D” ini dapat diselesaikan.'),
+    P('Laporan ini merupakan kelanjutan dari proposal pada Ujian Tengah Semester (UTS) yang memuat latar belakang, tujuan, dan metode berupa PEAS serta formulasi masalah. Pada Ujian Akhir Semester (UAS), rancangan tersebut diwujudkan menjadi sistem yang utuh: inti kecerdasan buatan dalam bahasa Python, aset tiga dimensi yang dibuat secara terprogram dengan Blender, serta simulasi tiga dimensi __real-time__ berbasis three.js yang memperlihatkan proses pencarian dan eksekusi rencana robot.'),
+    P('Penulis mengucapkan terima kasih kepada dosen pengampu mata kuliah Kecerdasan Buatan atas bimbingan dan ilmu yang diberikan, serta kepada seluruh anggota Kelompok 6 yang telah bekerja sama menyelesaikan proyek ini. Penulis menyadari bahwa laporan ini masih memiliki kekurangan. Kritik dan saran yang membangun sangat diharapkan demi penyempurnaan di masa mendatang. Semoga laporan ini bermanfaat bagi pembaca.'),
+    { t: 'raw', nodes: 'KATA_PENGANTAR_TTD' },
+
+    { t: 'front', text: 'Daftar Isi' },
+    { t: 'ph', tag: '{{TOC}}' },
+    { t: 'front', text: 'Daftar Gambar' },
+    { t: 'ph', tag: '{{LOF}}' },
+    { t: 'front', text: 'Daftar Tabel' },
+    { t: 'ph', tag: '{{LOT}}' },
+
+    { t: 'front', text: 'Abstrak' },
+    P(`Perencanaan rute merupakan kemampuan inti robot pembersih yang harus mengunjungi beberapa titik kotoran lalu kembali ke titik awal tanpa menabrak rintangan. Laporan ini menyajikan perancangan, implementasi, dan evaluasi agen pembersih ruang kelas yang memodelkan tugasnya sebagai masalah pencarian (__problem solving__). Tugas dirumuskan melalui PEAS dan lima komponen formulasi masalah dengan state s = (posisi robot, himpunan target tersisa). Algoritma __Breadth-First Search__ (BFS), __Uniform-Cost Search__ (UCS), dan A* dengan tiga heuristik (Manhattan, jarak-max, dan MST + terdekat) dibandingkan, bersama __Greedy Best-First__ dan __Nearest-Neighbor__ sebagai pembanding non-optimal. Pengujian dilakukan pada tiga skenario denah 8×5 yang dirancang pada UTS, satu skenario tambahan 10×7, dan uji skalabilitas pada denah acak dengan 2–9 target.`),
+    P(`Seluruh algoritma optimal menghasilkan biaya yang sama (${[1, 2, 3, 4].map((i) => g('S' + i, 'bfs', 'cost')).join(', ')} aksi pada S1–S4), tetapi A* dengan heuristik MST memeriksa ${(g('S2', 'bfs', 'expanded') / g('S2', 'astar_mst', 'expanded')).toFixed(1).replace('.', ',')} hingga ${(g('S4', 'bfs', 'expanded') / g('S4', 'astar_mst', 'expanded')).toFixed(1).replace('.', ',')} kali lebih sedikit state daripada BFS, dan ${spaces.ratio9} kali lebih sedikit pada denah dengan sembilan target. Greedy dan Nearest-Neighbor menghasilkan biaya ${g('S4', 'nn', 'cost')} pada S4, yaitu ${String(g('S4', 'nn', 'gap_pct')).replace('.', ',')}% lebih mahal dari rencana optimal. Rencana dari inti AI Python divisualkan sebagai simulasi 3D yang aset-nya dibuat dengan Blender (bpy) dan dirender secara __real-time__ dengan three.js, lengkap dengan visualisasi proses pencarian, mode editor, dan permainan “Kamu vs AI”. Seluruh 20 pengujian otomatis dinyatakan lulus.`),
+    { t: 'plain', text: '**Kata kunci:** agen pemecah masalah, PEAS, A*, heuristik admissible, perencanaan rute, robot pembersih, Blender, three.js.', opts: { indent: { firstLine: 0 } } },
+
+    { t: 'front', text: 'Abstract' },
+    { t: 'p', text: '__Route planning is a core capability of cleaning robots that must visit several dirt locations and return to the start without hitting obstacles. This report presents the design, implementation, and evaluation of a classroom-cleaning agent that models its task as a search problem. The task is formulated with PEAS and the five components of problem formulation, using the state s = (robot position, set of remaining targets). Breadth-First Search (BFS), Uniform-Cost Search (UCS), and A* with three heuristics (Manhattan, max-distance, and MST + nearest) are compared, together with Greedy Best-First and Nearest-Neighbor as non-optimal baselines. Experiments cover three 8×5 layouts designed in the midterm, one additional 10×7 layout, and a scalability test on random layouts with 2–9 targets.__' },
+    { t: 'p', text: `__All optimal algorithms return identical costs (${[1, 2, 3, 4].map((i) => g('S' + i, 'bfs', 'cost')).join(', ')} actions for S1–S4), but A* with the MST heuristic expands ${(g('S2', 'bfs', 'expanded') / g('S2', 'astar_mst', 'expanded')).toFixed(1)} to ${(g('S4', 'bfs', 'expanded') / g('S4', 'astar_mst', 'expanded')).toFixed(1)} times fewer states than BFS (${spaces.ratio9} times fewer with nine targets), while Greedy and Nearest-Neighbor are ${g('S4', 'nn', 'gap_pct')}% more expensive on S4. The plans computed by the Python AI core are visualized in a realistic 3D simulation whose assets are built with Blender (bpy) and rendered in real time with three.js, including search visualization, a map editor, and a “You vs AI” game. All 20 automated tests pass.__` },
+    { t: 'plain', text: '**Keywords:** problem-solving agent, PEAS, A*, admissible heuristic, route planning, cleaning robot, Blender, three.js.', opts: { indent: { firstLine: 0 } } },
+  ];
+
+  // ===================================================================== BAB I
+  const b1 = [
+    H('Pendahuluan', { chapter: 1, roman: 'I' }),
+    H2('1.1 Latar Belakang'),
+    P('Robot pembersih (__cleaning robot__) semakin banyak digunakan di lingkungan dalam ruangan seperti rumah, perkantoran, rumah sakit, dan sekolah. Salah satu kemampuan intinya adalah perencanaan rute (__path planning__), yaitu menentukan urutan lokasi yang dikunjungi dan jalur yang ditempuh agar pekerjaan selesai dengan biaya perjalanan sekecil mungkin tanpa menabrak rintangan (Moon et al., 2022).'),
+    P('Ruang kelas adalah contoh lingkungan yang sederhana tetapi representatif. Setelah kegiatan belajar, sampah tersebar pada beberapa titik, sedangkan meja, kursi, dan lemari membatasi gerak robot. Robot harus memutuskan titik mana yang dibersihkan lebih dahulu, jalur mana yang dilalui, dan kembali ke titik awal setelah selesai. Karena urutan kunjungan menentukan biaya total, masalah ini serupa dengan __Traveling Salesman Problem__ (TSP) pada jarak terpendek antar-titik, sehingga jumlah urutan yang mungkin tumbuh secara faktorial terhadap banyaknya titik kotoran.'),
+    P('Pada mata kuliah Kecerdasan Buatan, situasi seperti ini dipelajari melalui konsep agen pemecah masalah (__problem-solving agent__), yaitu agen yang merumuskan tujuan, merumuskan masalah, lalu mencari urutan aksi menuju tujuan (Russell & Norvig, 2021). Pada UTS, kelompok kami merancang agen pembersih ruang kelas berdasarkan PEAS dan lima komponen formulasi masalah, serta tiga skenario denah yang akan diuji dengan algoritma A*, dengan BFS atau UCS sebagai pembanding.'),
+    P('Laporan UAS ini melanjutkan rancangan tersebut menjadi proyek yang utuh: rancangan diimplementasikan dalam bahasa Python, dievaluasi secara kuantitatif, dan hasil rencananya divisualkan sebagai simulasi tiga dimensi yang realistis. Visualisasi dipilih karena rencana berupa deretan aksi sulit dipahami hanya dari angka. Dengan animasi robot, peta panas (__heat-map__) ekspansi state, serta antarmuka yang menampilkan nilai g(n), h(n), dan f(n), proses berpikir agen dapat dijelaskan secara intuitif. Aset tiga dimensi dibuat secara terprogram dengan Blender (Python API __bpy__) dan ditampilkan secara __real-time__ dengan pustaka three.js, sedangkan perhitungan rencana tetap dilakukan oleh inti AI Python yang dihubungkan melalui antarmuka REST (FastAPI).'),
+    H2('1.2 Rumusan Masalah'),
+    P('Berdasarkan latar belakang tersebut, rumusan masalah pada proyek ini adalah sebagai berikut.', { indent: { firstLine: 567 } }),
+    NUM('Bagaimana memodelkan tugas pembersihan ruang kelas oleh robot sebagai masalah __problem solving__ menggunakan PEAS dan lima komponen formulasi masalah?',
+      'Bagaimana perbandingan BFS, UCS, dan A* (dengan beberapa heuristik) dari sisi optimalitas rencana, jumlah state yang diperiksa, dan waktu komputasi?',
+      'Bagaimana pengaruh jumlah target dan kualitas heuristik terhadap efisiensi pencarian?',
+      'Bagaimana merealisasikan rencana tersebut menjadi simulasi 3D yang realistis dan interaktif sehingga proses berpikir agen dapat dijelaskan secara visual?'),
+    H2('1.3 Tujuan'),
+    NUM('Memodelkan tugas robot pembersih ruang kelas melalui PEAS dan lima komponen formulasi masalah.',
+      'Menghasilkan rencana perjalanan yang mengunjungi seluruh target dan kembali ke titik awal, dengan BFS, UCS, dan A* sebagai algoritma utama.',
+      'Mengevaluasi keberhasilan tugas, total biaya, jumlah state yang diperiksa, dan waktu komputasi pada beberapa skenario denah serta uji skalabilitas.',
+      'Membangun simulasi 3D yang realistis dan interaktif dengan memanfaatkan Python, Blender, dan three.js untuk memvisualkan proses pencarian dan eksekusi rencana.'),
+    H2('1.4 Manfaat'),
+    P('Secara teoretis, proyek ini memperlihatkan penerapan konsep agen, formulasi masalah, pencarian tak-berinformasi dan berinformasi, serta perancangan heuristik __admissible__ dan __consistent__ pada kasus nyata yang memiliki banyak target. Secara praktis, sistem yang dihasilkan dapat dijadikan alat peraga pembelajaran pencarian AI serta kerangka dasar perencanaan rute robot pembersih. Simulasi 3D-nya dapat dipakai untuk mencoba denah baru sebelum diterapkan pada robot sungguhan.'),
+    H2('1.5 Batasan Masalah'),
+    NUM('Lingkungan dimodelkan sebagai grid dua dimensi yang diskret; satu sel setara 1 m × 1 m dan robot bergerak ke empat arah (atas, kanan, bawah, kiri).',
+      'Titik kotoran dan denah perabot diketahui di awal (lingkungan teramati penuh dan statis). Pengecualian hanya pada uji penyusunan ulang rencana (__replanning__) ketika rintangan baru muncul.',
+      'Setiap aksi, baik bergerak maupun membersihkan, berbiaya 1 satuan; nilai ini adalah asumsi simulasi, bukan pengukuran energi robot sungguhan.',
+      'Sistem terdiri dari satu robot; koordinasi beberapa robot dan pengelolaan baterai tidak dibahas.',
+      'Proyek berupa simulasi perangkat lunak. Dinamika fisik robot (percepatan, kemiringan bodi, putaran roda) hanya dianimasikan untuk keperluan visual dan tidak memengaruhi hasil perencanaan.',
+      'Algoritma yang dibandingkan terbatas pada BFS, UCS, A* (tiga heuristik), Greedy Best-First, dan Nearest-Neighbor.'),
+    H2('1.6 Sistematika Penulisan'),
+    P('Laporan ini disusun dalam lima bab. Bab I Pendahuluan menguraikan latar belakang, rumusan masalah, tujuan, manfaat, dan batasan. Bab II Landasan Teori membahas agen cerdas, agen pemecah masalah, algoritma pencarian, fungsi heuristik, dan teknologi pendukung. Bab III Metodologi dan Perancangan menjelaskan tahapan pengembangan, analisis PEAS, formulasi masalah, skenario pengujian, metrik evaluasi, arsitektur sistem, dan perancangan simulasi 3D. Bab IV Implementasi, Hasil, dan Pembahasan menyajikan realisasi sistem, pengujian, hasil eksperimen, dan analisisnya. Bab V Penutup memuat kesimpulan dan saran. Lampiran memuat petunjuk menjalankan aplikasi, struktur proyek, hasil benchmark lengkap, dan cuplikan kode inti.'),
+  ];
+
+  // ===================================================================== BAB II
+  const b2 = [
+    H('Landasan Teori', { chapter: 2, roman: 'II' }),
+    H2('2.1 Agen Cerdas dan Lingkungan'),
+    H3('2.1.1 Konsep Agen'),
+    P('Agen adalah segala sesuatu yang mempersepsi lingkungannya melalui sensor dan bertindak terhadap lingkungan tersebut melalui aktuator (Russell & Norvig, 2021). Masukan sesaat dari sensor disebut __percept__, sedangkan seluruh riwayat percept disebut urutan percept (__percept sequence__). Fungsi agen memetakan urutan percept ke aksi, dan program agen adalah implementasi konkret fungsi tersebut. Agen disebut rasional apabila untuk setiap urutan percept ia memilih aksi yang diharapkan memaksimalkan ukuran performa, berdasarkan bukti dari percept dan pengetahuan bawaan yang dimilikinya.'),
+    { t: 'fig', key: 'agen', file: 'diag_agen_lingkungan.png', caption: 'Interaksi agen dengan lingkungan dan ringkasan PEAS.', width: 450 },
+    H3('2.1.2 PEAS'),
+    P('Lingkungan tugas (__task environment__) ditentukan dengan PEAS: __Performance measure__ (ukuran keberhasilan), __Environment__ (lingkungan), __Actuators__ (aktuator), dan __Sensors__ (sensor). Perumusan PEAS menjadi langkah pertama dalam merancang agen karena mengharuskan perancang menyebutkan secara eksplisit apa yang dianggap berhasil, apa yang dapat dipersepsi, dan apa yang dapat dilakukan agen. Penerapan PEAS pada robot pembersih ruang kelas diuraikan pada Bab III.'),
+    H3('2.1.3 Sifat Lingkungan Tugas'),
+    P('Lingkungan tugas dapat dikarakterisasi berdasarkan beberapa dimensi: teramati penuh atau sebagian, deterministik atau stokastik, episodik atau sekuensial, statis atau dinamis, diskret atau kontinu, serta agen tunggal atau jamak. Pada proyek ini lingkungan bersifat teramati penuh (denah dan lokasi kotoran diketahui), deterministik (aksi selalu menghasilkan efek yang sama), sekuensial (aksi sekarang memengaruhi biaya selanjutnya), statis (kecuali pada uji penyusunan ulang rencana), diskret (grid), dan melibatkan agen tunggal. Kombinasi sifat ini memungkinkan agen menyusun seluruh rencana di awal melalui pencarian dan mengeksekusinya tanpa umpan balik, sambil tetap siap menyusun ulang rencana apabila percept menunjukkan hal tak terduga.'),
+    H3('2.1.4 Jenis Agen'),
+    P('Berdasarkan struktur program, agen dibedakan menjadi agen refleks sederhana, agen refleks berbasis model, agen berbasis tujuan (__goal-based__), agen berbasis utilitas, dan agen pembelajar. Agen pembersih pada proyek ini tergolong agen berbasis tujuan: ia menyimpan model lingkungan (denah dan daftar target), merumuskan tujuan eksplisit, lalu memilih aksi melalui pencarian urutan aksi yang mencapai tujuan tersebut.'),
+
+    H2('2.2 Agen Pemecah Masalah'),
+    H3('2.2.1 Siklus Agen'),
+    P('Agen pemecah masalah bekerja dalam empat fase. Pertama, __perumusan tujuan__ (__goal formulation__), yaitu membatasi perilaku agen pada kumpulan state tujuan. Kedua, __perumusan masalah__ (__problem formulation__), yaitu memutuskan aksi dan state apa yang dipertimbangkan. Ketiga, __pencarian__ (__search__), yaitu mensimulasikan urutan aksi pada model hingga ditemukan urutan yang mencapai tujuan. Keempat, __eksekusi__, yaitu menjalankan aksi pada rencana. Siklus ini dirangkum pada {fig:siklus} dan diterjemahkan menjadi program agen pada {lst:agen}.'),
+    { t: 'fig', key: 'siklus', file: 'diag_problem_solving.png', caption: 'Siklus agen pemecah masalah beserta penyusunan ulang rencana.', width: 480 },
+    { t: 'code', key: 'agen', caption: 'Program agen pemecah masalah sederhana (Russell & Norvig, 2021).', lines: [
+      'function SIMPLE-PROBLEM-SOLVING-AGENT(percept) returns an action',
+      '    persistent: seq, an action sequence, initially empty',
+      '                state, some description of the current world state',
+      '                goal, a goal, initially null',
+      '                problem, a problem formulation',
+      '    state <- UPDATE-STATE(state, percept)',
+      '    if seq is empty then',
+      '        goal    <- FORMULATE-GOAL(state)',
+      '        problem <- FORMULATE-PROBLEM(state, goal)',
+      '        seq     <- SEARCH(problem)',
+      '        if seq = failure then return a null action',
+      '    action <- FIRST(seq)',
+      '    seq    <- REST(seq)',
+      '    return action',
+    ] },
+    H3('2.2.2 Formulasi Masalah'),
+    P('Masalah pencarian dirumuskan secara formal melalui lima komponen berikut (Russell & Norvig, 2021).'),
+    NUM('**Keadaan awal** (__initial state__): keadaan tempat agen memulai.',
+      '**Aksi** (__actions__): himpunan aksi yang dapat dilakukan pada suatu state s, dinotasikan ACTIONS(s).',
+      '**Model transisi** (__transition model__): deskripsi efek aksi, dinotasikan RESULT(s, a) yang menghasilkan state berikutnya.',
+      '**Uji tujuan** (__goal test__): fungsi yang menentukan apakah suatu state adalah state tujuan.',
+      '**Biaya jalur** (__path cost__): fungsi yang memberi biaya numerik pada jalur; biaya langkah c(s, a, s′) dijumlahkan sepanjang jalur.'),
+    P('Solusi adalah urutan aksi dari keadaan awal hingga state tujuan, dan solusi optimal adalah solusi dengan biaya jalur terendah. Keempat komponen pertama mendefinisikan ruang state (__state space__) berupa graf yang simpulnya adalah state dan sisinya adalah aksi. Pencarian menelusuri graf tersebut dengan menjaga batas (__frontier__) berisi simpul yang telah dibangkitkan namun belum diperluas, serta himpunan state yang telah diperluas (__explored set__ atau __closed set__) agar state yang sama tidak diproses berulang.'),
+
+    H2('2.3 Algoritma Pencarian'),
+    H3('2.3.1 Kriteria Penilaian'),
+    P('Algoritma pencarian dinilai dengan empat kriteria: __kelengkapan__ (apakah selalu menemukan solusi bila ada), __optimalitas__ (apakah solusi yang ditemukan berbiaya terendah), __kompleksitas waktu__, dan __kompleksitas ruang__. Kompleksitas biasanya dinyatakan dengan faktor percabangan b (jumlah suksesor per simpul), kedalaman solusi terdangkal d, dan kedalaman maksimum ruang state m.'),
+    H3('2.3.2 Breadth-First Search (BFS)'),
+    P('BFS memperluas simpul terdangkal lebih dahulu dengan antrian FIFO. Algoritma ini lengkap bila b berhingga dan optimal bila semua aksi berbiaya sama, karena solusi terdangkal pasti berbiaya terendah. Kompleksitas waktu dan ruangnya O(b^{d}), sehingga memori menjadi kendala utama. Pada implementasi kami, uji tujuan dilakukan saat state dibangkitkan (__early goal test__), mengikuti Russell dan Norvig (2021).'),
+    H3('2.3.3 Uniform-Cost Search (UCS)'),
+    P('UCS (varian algoritma Dijkstra yang berhenti saat tujuan ditemukan; Dijkstra, 1959) memperluas simpul dengan biaya jalur g(n) terkecil menggunakan antrian prioritas. UCS lengkap dan optimal selama setiap biaya langkah lebih besar dari konstanta ε > 0. Pada masalah dengan biaya langkah seragam seperti proyek ini, UCS berperilaku hampir sama dengan BFS; perbedaannya hanya pada saat uji tujuan, yaitu ketika simpul diperluas, bukan ketika dibangkitkan.'),
+    H3('2.3.4 Algoritma A*'),
+    P('A* memperluas simpul dengan nilai f(n) terkecil, dengan f(n) menjumlahkan biaya yang sudah ditempuh dan perkiraan biaya yang tersisa (Hart et al., 1968):'),
+    { t: 'eq', text: 'f(n) = g(n) + h(n)', no: '2.1' },
+    P('Di sini g(n) adalah biaya jalur dari keadaan awal ke simpul n dan h(n) adalah perkiraan biaya terendah dari n ke tujuan. A* optimal bila h admissible pada pencarian pohon, dan bila h consistent pada pencarian graf (Dechter & Pearl, 1985). Dibandingkan UCS, A* hanya memperluas simpul yang tampak menjanjikan menurut h(n), sehingga umumnya memeriksa jauh lebih sedikit state. Pada implementasi kami, simpul dengan nilai f sama diurutkan menurut h yang lebih kecil (lebih dekat ke tujuan), dan uji tujuan dilakukan saat simpul akan diperluas.'),
+    H3('2.3.5 Greedy Best-First Search dan Nearest-Neighbor'),
+    P('Greedy Best-First Search hanya memakai h(n) untuk memilih simpul. Algoritma ini cepat, tetapi tidak menjamin solusi optimal karena mengabaikan biaya yang sudah ditempuh. Nearest-Neighbor adalah heuristik rakus klasik untuk TSP: dari posisi sekarang, robot selalu menuju target terdekat yang belum dibersihkan, lalu kembali ke titik awal setelah semua target selesai. Nearest-Neighbor bukan pencarian pada ruang state, sehingga tidak menghasilkan hitungan state yang diperiksa. Keduanya dipakai sebagai pembanding untuk memperlihatkan bahwa urutan kunjungan menentukan biaya.'),
+    { t: 'tab', key: 'teori', caption: 'Perbandingan teoretis algoritma pencarian yang digunakan.', widths: [1500, 1250, 1750, 1650, 1787], size: 20,
+      head: ['Algoritma', 'Lengkap', 'Optimal', 'Waktu', 'Ruang'],
+      rows: [
+        ['BFS', 'Ya (b berhingga)', 'Ya, bila biaya langkah seragam', 'O(b^{d})', 'O(b^{d})'],
+        ['UCS', 'Ya (biaya ≥ ε > 0)', 'Ya', 'O(b^{1+⌊C*/ε⌋})', 'O(b^{1+⌊C*/ε⌋})'],
+        ['A*', 'Ya (biaya ≥ ε > 0)', 'Ya, bila h admissible (pohon) / consistent (graf)', 'Bergantung pada h; eksponensial pada kasus terburuk', 'Seluruh simpul disimpan'],
+        ['Greedy', 'Tidak pada pencarian pohon; ya pada graf berhingga', 'Tidak', 'O(b^{m}) kasus terburuk', 'O(b^{m})'],
+        ['Nearest-Neighbor', 'Ya, bila semua target terjangkau', 'Tidak', 'Polinomial (k pencarian BFS)', 'O(jumlah sel)'],
+      ],
+      note: 'Keterangan: b = faktor percabangan, d = kedalaman solusi terdangkal, m = kedalaman maksimum, C* = biaya solusi optimal, k = jumlah target.' },
+
+    H2('2.4 Fungsi Heuristik'),
+    H3('2.4.1 Admissible dan Consistent'),
+    P('Heuristik h(n) disebut __admissible__ bila tidak pernah melebihi biaya sebenarnya untuk mencapai tujuan, yaitu h(n) ≤ h*(n) untuk setiap simpul n. Heuristik disebut __consistent__ bila untuk setiap simpul n dan suksesor n′ yang dihasilkan aksi a berlaku ketidaksamaan segitiga:'),
+    { t: 'eq', text: 'h(n) ≤ c(n, a, n′) + h(n′)', no: '2.2' },
+    P('Heuristik yang consistent selalu admissible, dan nilai f tidak pernah menurun sepanjang jalur. Akibatnya A* pada pencarian graf dengan heuristik consistent tidak perlu membuka kembali state yang sudah diperluas, dan solusi pertama yang ditemukan sudah optimal. Heuristik yang lebih besar namun tetap admissible dikatakan __mendominasi__ heuristik yang lebih kecil, dan umumnya membuat A* memeriksa lebih sedikit state.'),
+    H3('2.4.2 Heuristik untuk Pembersihan Multi-Target'),
+    P('Pada masalah pembersihan multi-target, sisa pekerjaan dari suatu state adalah mengunjungi seluruh target tersisa R lalu kembali ke titik awal. Karena setiap target membutuhkan tepat satu aksi “bersihkan”, suku |R| dapat ditambahkan pada semua heuristik. Dengan d(a, b) sebagai jarak terpendek pada grid (dihitung dengan BFS) dan home sebagai titik awal, tiga heuristik yang dipakai pada proyek ini adalah sebagai berikut.'),
+    { t: 'eq', text: 'h_{M}(s) = max_{t∈R} [ |pos − t| + |t − home| ]_{Manhattan} + |R|', no: '2.3' },
+    { t: 'eq', text: 'h_{max}(s) = max_{t∈R} [ d(pos, t) + d(t, home) ] + |R|', no: '2.4' },
+    { t: 'eq', text: 'h_{MST}(s) = MST(R ∪ {home}) + min_{u∈R∪{home}} d(pos, u) + |R|', no: '2.5' },
+    P('Heuristik h_{M} adalah versi paling sederhana karena mengabaikan rintangan. Heuristik h_{max} memakai jarak sebenarnya sehingga lebih ketat. Heuristik h_{MST} memanfaatkan __Minimum Spanning Tree__ (MST) yang dihitung dengan algoritma Prim (Prim, 1957) atas simpul target tersisa dan titik awal dengan bobot sisi berupa jarak BFS. Bobot MST adalah batas bawah panjang jalan apa pun yang menyinggung semua simpul tersebut, ditambah jarak terdekat dari posisi robot ke salah satu simpul. Dengan demikian h_{MST} tidak pernah melebihi biaya sisa sebenarnya sehingga admissible. Konsistensinya mengikuti dua fakta: jarak terdekat berubah paling banyak 1 untuk setiap gerakan, dan menambahkan satu simpul ke himpunan menaikkan bobot MST paling banyak sebesar jarak simpul itu ke simpul terdekat lainnya. Ketiga heuristik juga diverifikasi secara empiris melalui pengujian otomatis (Bab IV).'),
+    P('Gagasan merepresentasikan state sebagai pasangan posisi dan himpunan target yang belum dikunjungi sejalan dengan pemrograman dinamis untuk TSP oleh Held dan Karp (1962), yang juga membedakan state berdasarkan subhimpunan simpul yang telah dikunjungi. Konsekuensinya, ukuran ruang state berada pada orde (jumlah sel bebas) × 2^{k} untuk k target.'),
+
+    H2('2.5 Teknologi Pendukung'),
+    H3('2.5.1 Python, FastAPI, dan Pustaka Analisis'),
+    P('Python dipilih sebagai bahasa implementasi inti AI sesuai ketentuan tugas. Antarmuka antara inti AI dan aplikasi 3D dibangun dengan FastAPI (dijalankan oleh server ASGI uvicorn) yang menyediakan titik akhir REST berformat JSON. NumPy dan Pillow dipakai untuk membangkitkan tekstur prosedural, Matplotlib untuk grafik laporan, pytest untuk pengujian otomatis, serta Playwright untuk menangkap layar aplikasi 3D secara otomatis dengan akselerasi GPU.'),
+    H3('2.5.2 Blender dan bpy'),
+    P('Blender adalah perangkat lunak pemodelan 3D sumber terbuka yang seluruh fungsinya dapat dikendalikan melalui Python API (__bpy__) dan dijalankan tanpa antarmuka (__headless__). Model dibangun dari primitif mesh melalui modul __bmesh__ dengan bevel agar tepi menangkap cahaya secara realistis. Material memakai Principled BSDF yang berbasis model Disney (Burley, 2012) dengan parameter warna dasar, kekasaran (__roughness__), kilap logam (__metallic__), lapisan pelindung (__clearcoat__), dan emisi. Model diekspor ke format glTF 2.0 (berkas .glb) yang didukung langsung oleh three.js. Mesin Cycles dengan akselerasi OptiX digunakan untuk render fotorealistis.'),
+    H3('2.5.3 three.js'),
+    P('three.js adalah pustaka JavaScript untuk menampilkan grafika 3D di peramban berbasis WebGL. Fitur yang dimanfaatkan pada proyek ini meliputi material fisik (__MeshPhysicalMaterial__), pencahayaan berbasis gambar (__image-based lighting__) dari lingkungan prosedural, peta bayangan (__shadow map__) dari cahaya matahari, __GLTFLoader__ untuk memuat aset Blender, dan rantai pascapemrosesan (__EffectComposer__) berisi __ambient occlusion__ (GTAO) dan __bloom__.'),
+
+    H2('2.6 Penelitian Terkait'),
+    P('Moon et al. (2022) mengusulkan perencanaan jalur robot pembersih berbasis __reinforcement learning__. Pendekatan pembelajaran berguna ketika lingkungan tidak diketahui, tetapi memerlukan proses pelatihan dan tidak menjamin optimalitas. Sebaliknya, pendekatan berbasis pencarian yang dipakai pada proyek ini memanfaatkan denah yang diketahui untuk menghasilkan rencana yang terbukti optimal dan dapat dijelaskan langkah demi langkah, sehingga cocok untuk tujuan pembelajaran dan visualisasi. Rujukan NIST tentang kinerja mobilitas sistem robotik menegaskan perlunya metrik yang terukur dan dapat diulang, sejalan dengan metrik evaluasi pada proyek ini.'),
+  ];
+
+  // ===================================================================== BAB III
+  const sc = D.scenarios;
+  const b3 = [
+    H('Metodologi dan Perancangan', { chapter: 3, roman: 'III' }),
+    H2('3.1 Tahapan Pengembangan'),
+    P('Pengembangan dilakukan dalam enam tahap yang digambarkan pada {fig:metodologi}. Tahap analisis dan formulasi sudah dikerjakan pada UTS; tahap perancangan hingga analisis hasil dikerjakan pada UAS.'),
+    { t: 'fig', key: 'metodologi', file: 'diag_metodologi.png', caption: 'Tahapan pengembangan proyek.', width: 470 },
+    NUM('**Analisis**: menentukan latar belakang, tujuan, dan karakteristik tugas melalui PEAS.',
+      '**Formulasi**: merumuskan state, aksi, model transisi, uji tujuan, dan biaya sebagai masalah pencarian.',
+      '**Perancangan**: menyusun skenario pengujian, memilih algoritma dan heuristik, serta merancang arsitektur sistem dan simulasi 3D.',
+      '**Implementasi**: membangun inti AI di Python, aset 3D di Blender, dan simulasi real-time di three.js.',
+      '**Pengujian**: menjalankan pengujian otomatis, benchmark pada S1–S4, dan uji skalabilitas pada denah acak.',
+      '**Analisis hasil**: membahas hasil, menarik kesimpulan, dan merumuskan saran pengembangan.'),
+
+    H2('3.2 Analisis Tugas dengan PEAS'),
+    { t: 'tab', key: 'peas', caption: 'Rumusan PEAS agen pembersih ruang kelas.', widths: [1700, 6237], size: 21,
+      head: ['Komponen', 'Uraian'],
+      rows: [
+        ['Performance', 'Seluruh target kotoran dibersihkan, robot tidak menabrak perabot (nol tabrakan), robot kembali ke titik awal, dan total biaya perjalanan sekecil mungkin.'],
+        ['Environment', 'Satu ruang kelas berbentuk grid; perabot (meja, lemari, rak, meja guru, tempat sampah) berfungsi sebagai rintangan; terdapat titik kotoran sebagai target dan titik awal di dekat pintu.'],
+        ['Actuators', 'Roda penggerak untuk bergerak ke atas, kanan, bawah, dan kiri; sikat dan penghisap untuk membersihkan.'],
+        ['Sensors', 'Posisi robot, sensor jarak/LiDAR (apakah sel tetangga terhalang), sensor debu (apakah ada kotoran pada sel saat ini), serta data denah ruangan.'],
+      ], boldFirst: true },
+    P('PEAS tersebut diimplementasikan secara langsung pada kelas ClassroomEnvironment dan CleaningAgent di modul `agent.py`. Percept berisi nomor langkah, posisi, status sensor debu, dan status terhalang pada keempat arah. Ukuran performa dihitung oleh lingkungan: jumlah gerakan, jumlah pembersihan, total biaya, dan jumlah tabrakan.'),
+
+    H2('3.3 Formulasi Masalah'),
+    H3('3.3.1 Representasi State'),
+    P('State dinyatakan sebagai s = (x, y, mask), dengan (x, y) posisi robot pada grid dan mask sebuah bitmask yang bit ke-i bernilai 1 bila target ke-i belum dibersihkan. Representasi ini ringkas dan memungkinkan penghapusan target dengan satu operasi bit. Dalam kode, state diwakili oleh `State(NamedTuple)` sehingga dapat dijadikan kunci kamus. Batas atas jumlah state adalah (jumlah sel bebas) × 2^{k}.'),
+    H3('3.3.2 Lima Komponen Formulasi'),
+    { t: 'tab', key: 'formulasi', caption: 'Lima komponen formulasi masalah pembersihan multi-target.', widths: [1750, 3300, 2887], size: 20,
+      head: ['Komponen', 'Definisi', 'Implementasi (kelas CleaningProblem)'],
+      rows: [
+        ['Keadaan awal', 'Robot berada di titik awal dan semua target belum dibersihkan: s_0 = (x_0, y_0, 2^k − 1).', 'initial_state()'],
+        ['Aksi', 'Bergerak (U, R, D, L) ke sel tetangga yang berada di dalam ruangan dan bukan rintangan; membersihkan (C) bila posisi saat ini adalah target yang masih kotor.', 'actions(s), successors(s)'],
+        ['Model transisi', 'Gerakan mengubah (x, y); aksi C menghapus bit target pada mask; aksi lain tidak mengubah mask.', 'result(s, a)'],
+        ['Uji tujuan', 'mask = 0 dan posisi robot sama dengan titik awal.', 'goal_test(s)'],
+        ['Biaya jalur', 'Biaya langkah 1 untuk setiap aksi (gerak maupun bersihkan); biaya jalur adalah jumlah langkah.', 'step_cost(s, a)'],
+      ], boldFirst: true, mono: [2] },
+    P('Urutan aksi dibuat tetap (C, U, R, D, L) agar hasil pencarian deterministik dan dapat direproduksi. Target yang berada di atas rintangan atau tidak terjangkau dari titik awal dideteksi sebelum pencarian dan dilaporkan sebagai target yang dilewati, sehingga agen tidak mencari tanpa akhir.'),
+
+    H2('3.4 Skenario Pengujian'),
+    P('Pengujian memakai empat skenario denah. Skenario S1, S2, dan S3 sama persis dengan rancangan UTS: grid 8 kolom × 5 baris dengan robot berangkat dari pintu di pojok kiri-bawah. S1 memiliki sedikit rintangan, S2 memiliki banyak rintangan dengan koridor sempit, dan S3 memiliki lima target yang tersebar di berbagai sudut. Skenario S4 adalah denah tambahan berukuran 10 × 7 berisi enam meja panjang, meja guru, lemari, rak buku, tempat sampah, dan enam target; S4 dipakai untuk menguji skalabilitas sekaligus sebagai tampilan utama simulasi. Spesifikasi lengkap diberikan pada {tab:skenario}, dan denah beserta rute optimal pada {fig:denah} dan {fig:denah4}. Pada gambar denah, kotak hijau menandakan meja, kotak biru lemari, kotak cokelat rak buku, dan angka menandakan urutan pembersihan pada rute optimal.'),
+    { t: 'tab', key: 'skenario', caption: 'Spesifikasi skenario pengujian.', widths: [600, 1500, 800, 1000, 700, 2400, 937], size: 19,
+      head: ['ID', 'Nama', 'Grid', 'Sel bebas', 'k', 'Koordinat target (x, y)', 'Ruang state'],
+      rows: sc.map((s) => [s.id, s.name, `${s.width}×${s.height}`, String(s.free), String(s.targets.length), s.targets.map((t, i) => `${i + 1}:(${t[0]},${t[1]})`).join(' '), fmt(s.free * 2 ** s.targets.length)]),
+      align: ['l', 'l', 'c', 'r', 'r', 'l', 'r'],
+      note: 'Keterangan: titik awal berada di (0, 4) untuk S1–S3 dan (0, 6) untuk S4; x = kolom (0 di sisi pintu), y = baris (0 di dekat papan tulis).' },
+    { t: 'fig', key: 'denah', file: 'rute_S1-S3.png', caption: 'Denah skenario S1–S3 (rancangan UTS) beserta rute optimal A*.', width: 500 },
+    { t: 'fig', key: 'denah4', file: 'rute_S4.png', caption: 'Denah skenario S4 (kelas penuh 10 × 7) beserta rute optimal A*.', width: 280 },
+    P('Selain skenario tetap, dilakukan uji skalabilitas pada denah acak berukuran 10 × 7 dengan jumlah target k = 2 sampai 9. Untuk setiap k dibangkitkan lima denah dengan benih acak 0 sampai 4 (total 40 denah). Generator denah menempatkan meja dan lemari secara acak lalu memilih lokasi target hanya dari sel yang terjangkau, sehingga setiap denah selalu dapat diselesaikan.'),
+
+    H2('3.5 Algoritma dan Heuristik yang Diuji'),
+    { t: 'tab', key: 'konfig', caption: 'Konfigurasi algoritma yang dibandingkan.', widths: [1800, 1900, 2437, 1800], size: 20,
+      head: ['Kode', 'Algoritma', 'Prioritas / aturan', 'Jaminan optimal'],
+      rows: [
+        ['bfs', 'BFS', 'Antrian FIFO; uji tujuan saat dibangkitkan', 'Ya (biaya seragam)'],
+        ['ucs', 'UCS', 'g(n) terkecil', 'Ya'],
+        ['astar_manhattan', 'A* (Manhattan)', 'f = g + h_{M}', 'Ya'],
+        ['astar_max', 'A* (jarak-max)', 'f = g + h_{max}', 'Ya'],
+        ['astar_mst', 'A* (MST)', 'f = g + h_{MST}', 'Ya'],
+        ['greedy_mst', 'Greedy (MST)', 'h_{MST} saja', 'Tidak'],
+        ['nn', 'Nearest-Neighbor', 'Selalu ke target terdekat', 'Tidak'],
+      ], mono: [0] },
+    P('Semua algoritma pencarian bekerja pada ruang state yang sama dan memakai himpunan tertutup (__closed set__) agar state tidak diperluas dua kali. Jarak BFS dari setiap target dan dari titik awal dihitung satu kali sebelum pencarian dan disimpan sebagai tabel, sehingga evaluasi h(n) berlangsung dalam waktu hampir konstan; bobot MST untuk setiap himpunan target tersisa disimpan pada cache. Waktu penyiapan heuristik ini termasuk dalam waktu komputasi yang dilaporkan.'),
+
+    H2('3.6 Metrik Evaluasi'),
+    { t: 'tab', key: 'metrik', caption: 'Metrik evaluasi.', widths: [1900, 3650, 2387], size: 20,
+      head: ['Metrik', 'Definisi', 'Satuan / cara ukur'],
+      rows: [
+        ['Tugas selesai', 'Seluruh target bersih dan robot kembali ke titik awal.', 'Ya / tidak'],
+        ['Total gerakan', 'Jumlah aksi gerak pada rencana.', 'Langkah'],
+        ['Total biaya', 'Jumlah biaya aksi gerak dan bersihkan (1 per aksi).', 'Satuan biaya'],
+        ['State diperiksa', 'Jumlah state yang diperluas oleh algoritma.', 'State'],
+        ['State dibangkitkan', 'Jumlah state yang dimasukkan ke batas pencarian.', 'State'],
+        ['Waktu komputasi', 'Lama pencarian termasuk penyiapan heuristik.', 'ms, median 5 kali jalan'],
+        ['Selisih biaya', '(biaya − biaya optimal) / biaya optimal.', 'Persen'],
+        ['Tabrakan', 'Jumlah gerakan yang menabrak rintangan selama eksekusi.', 'Kejadian'],
+      ], boldFirst: true },
+    P('Pada skenario tetap, waktu komputasi adalah median dari lima kali pengulangan untuk meredam fluktuasi pengukuran. Pada uji skalabilitas, hasil tiap k adalah rata-rata dari lima denah acak dengan satu kali jalan per denah.'),
+
+    H2('3.7 Arsitektur Sistem'),
+    P('Sistem terdiri atas tiga lapis yang diperlihatkan pada {fig:arsitektur}. Lapis pertama adalah inti AI Python yang memuat formulasi masalah, algoritma pencarian, heuristik, agen PEAS, benchmark, dan pembuat grafik. Lapis kedua adalah aset 3D yang dibangun secara terprogram dengan Blender dan diekspor sebagai berkas .glb. Lapis ketiga adalah aplikasi web three.js yang menampilkan dunia 3D dan menganimasikan robot berdasarkan rencana dari lapis pertama.'),
+    { t: 'fig', key: 'arsitektur', file: 'arsitektur_sistem.png', caption: 'Arsitektur sistem CleanBot 3D.', width: 470 },
+    P('Alur data berjalan sebagai berikut. Peramban mengirim permintaan POST ke `/api/plan` berisi spesifikasi denah (ukuran, rintangan, titik awal, target), nama algoritma, dan nama heuristik. Server FastAPI membangun objek `CleaningProblem`, menjalankan `solve()`, lalu mengembalikan JSON yang memuat rangkaian aksi (misalnya “RRDC…”), daftar sel yang dilalui, urutan pembersihan target, nilai h(n) sepanjang rute, statistik pencarian, serta data ekspansi state untuk heat-map. Titik akhir lain adalah `/api/meta` (daftar skenario, algoritma, heuristik) dan `/api/benchmark` (hasil perbandingan untuk jendela Lab). Server juga melayani berkas statis aplikasi web. Bila server Python tidak aktif, aplikasi memakai data cadangan di folder `web/data` sehingga skenario S1–S4 tetap dapat dijalankan.'),
+
+    H2('3.8 Perancangan Simulasi 3D'),
+    H3('3.8.1 Pemetaan Koordinat dan Aset'),
+    P('Satu sel grid setara 1 m pada dunia 3D. Kolom grid x dipetakan ke sumbu +X dan baris grid y ke sumbu +Z (ke arah selatan), dengan sumbu Y sebagai tinggi. Pada Blender, koordinat (x, y, z) dipetakan ke (x, z, −y) pada three.js saat ekspor glTF. Depan robot menghadap sumbu +X. Aset dirancang dalam tiga kelompok: robot CleanBot, properti kelas (meja, kursi, lemari, rak buku, meja guru, papan tulis, pintu, jendela, jam, AC, lampu, tempat sampah, tanaman, dok pengisian), dan jenis sampah sebagai penanda target (kertas, bungkus, pensil, kotak jus, remah, tumpahan, debu, penghapus).'),
+    H3('3.8.2 Alur Sutradara dan Antarmuka'),
+    P('Modul __Director__ mengatur alur agen sebagai mesin keadaan: diam (idle), merumuskan tujuan, merumuskan masalah, mencari, rencana siap, mengeksekusi, selesai. Kelima tahap utama ditampilkan pada antarmuka sebagai penanda tahap di bagian bawah layar agar audiens dapat mengikuti fase agen pemecah masalah secara langsung. Panel kanan menampilkan PEAS yang diperbarui setiap langkah, state saat ini beserta nilai g(n), h(n), dan f(n), metrik pencarian, serta daftar aksi. Panel kiri berisi pilihan skenario, algoritma, heuristik, kecepatan, dan kamera.'),
+    H3('3.8.3 Visualisasi Pencarian, Kamera, dan Interaksi'),
+    BUL('**Heat-map ekspansi**: setiap sel lantai diwarnai menurut banyaknya state yang diperluas pada sel tersebut sehingga perbedaan BFS dan A* terlihat jelas.',
+      '**Rute menyala**: pita bercahaya di lantai menunjukkan rute rencana; penanda bernomor menunjukkan urutan kunjungan target.',
+      '**Lima mode kamera**: overview, atas, ikuti robot, sudut pandang robot (FPV), dan sinema.',
+      '**Sensor LiDAR**: kipas pindai di lantai dan titik hantam pada perabot memvisualkan sensor jarak.',
+      '**Mode Editor**: pengguna menambah atau menghapus kotoran dan perabot dengan klik lantai, lalu A* menyusun ulang rencana.',
+      '**Mode Game “Kamu vs AI”**: pengguna mengendalikan robot dengan keyboard dan membandingkan biayanya dengan rencana optimal A*.',
+      '**Lab algoritma**: jendela yang membandingkan seluruh algoritma pada S1–S4 dan menampilkan grafik skalabilitas.'),
+  ];
+
+  return { front, bodyA: [...b1, ...b2, ...b3] };
+};
