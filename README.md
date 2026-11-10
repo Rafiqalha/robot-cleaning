@@ -61,12 +61,15 @@ cleanbot/          inti AI (Python)
   agent.py           PEAS + SIMPLE-PROBLEM-SOLVING-AGENT (dengan replanning bila rintangan muncul)
   api.py             jembatan JSON ke aplikasi 3D
   benchmark.py       benchmark + uji skalabilitas  →  results/
+  export_dataset.py  ekspor dataset/ (denah + hasil benchmark, CSV/JSON) lalu verifikasi terhadap kode pencarian
   plots.py           grafik untuk laporan/PPT  →  results/figures/
+dataset/           DATASET: 4 denah rancangan + 40 denah acak (masukan), hasil benchmark 7 algoritma (keluaran); lihat dataset/README.md
 server.py          FastAPI: /api/meta, /api/plan, /api/benchmark + file statis
 web/               aplikasi three.js (index.html, js/, css/, assets/, vendor/, data/)
 blender/           pembangun aset (bpy): build_assets.py, asset_*.py, render_scene.py, make_textures.py
 tests/             20 uji otomatis (pytest)
-tools/             capture.py (tangkapan layar), record_demo.py (rekam video demo, jam virtual + ffmpeg)
+tools/             capture.py (tangkapan layar), record_demo.py (rekam video demo, jam virtual + ffmpeg),
+                   record_launch.py + make_launch_audio.py (video peluncuran produk 30 dtk, lihat bagian "Video peluncuran")
 docs_build/        pembuat PPT & laporan (pptxgenjs, docx-js, Word/WPS COM)
 docs/              tangkapan layar & render pratinjau
 ```
@@ -76,6 +79,7 @@ docs/              tangkapan layar & render pratinjau
 ```bash
 python -m pytest tests -q                    # 20 uji: optimalitas, admissibility, agen, kasus tepi
 python -m cleanbot.benchmark                 # benchmark + grafik di results/
+python -m cleanbot.export_dataset            # tulis ulang dataset/ (CSV/JSON) + verifikasi terhadap kode pencarian
 python -m cleanbot.demo S3 --algo astar      # agen PEAS di terminal (ASCII)
 python blender/make_textures.py              # tekstur prosedural (numpy)
 "C:\Program Files\Blender Foundation\Blender 5.2\blender.exe" --background --factory-startup --python blender/build_assets.py
@@ -104,9 +108,34 @@ node docs_build/make_deck.js dokumen/UAS_AI_Mini_Project_Kelompok6_CleanBot3D.pp
 node docs_build/make_report.js dokumen/Laporan_Mini_Project_UAS_AI_Kelompok6.docx
 python docs_build/word_finalize.py dokumen/Laporan_Mini_Project_UAS_AI_Kelompok6.docx   # isi daftar isi (COM) + ekspor PDF
 python tools/record_demo.py                  # (opsional) rekam ulang video demo; server harus berjalan
+python docs_build/make_progress_deck.py      # salinan PPT untuk laporan progres (slide tak terpakai disembunyikan, asli utuh)
 ```
 
 Catatan: sampul laporan memuat dua penanda berlatar kuning (`[Nama Dosen Pengampu]` dan `[Program Studi / Fakultas]`) yang perlu diisi.
+
+## Video peluncuran produk (30 detik)
+
+Video bergaya peluncuran produk startup: zoom masuk/keluar yang halus pada robot, tanpa panel HUD, setiap bagian dijelaskan
+dengan titik dan gelembung penjelasan (bukan percakapan). Babak 1 = studio (LiDAR, wajah, sikat, roda); babak 2 = robot bekerja di kelas
+(A\* + eksekusi); penutup = angka kinerja. Gambar dirender dari aplikasi three.js yang sama (mode `?launch=`), suara disintesis dengan numpy.
+
+| Berkas | Isi |
+|---|---|
+| `docs/launch_cleanbot_30s_720p.mp4` | 30 detik, 720p, 60 fps, dengan audio sintetis (1080p dibuat ulang dengan `tools/record_launch.py`) |
+| `docs/launch_poster.jpg` | Gambar sampul |
+
+![Sampul video peluncuran](docs/launch_poster.jpg)
+
+```bash
+python server.py                                  # di terminal terpisah
+python tools/make_launch_audio.py                 # trek audio sintetis (numpy/scipy) -> docs_build/launch_audio.m4a
+python tools/record_launch.py                     # 1080p 60 fps -> docs/launch_cleanbot_30s.mp4 (+ _720p), sekitar 3–4 menit
+python tools/record_launch.py --stills 2.7,7,15   # PNG uji pada detik tertentu -> docs_build/stills
+```
+
+Pratinjau langsung (waktu nyata) di peramban: `http://localhost:8765/?launch=live&scenario=S4` (jendela 16:9, tekan F11).
+Rekaman bersifat deterministik: simulasi dimajukan tepat 1/fps detik per bingkai (`launch.frame(t, dt)`), dan bagian agen yang
+dipercepat dilewati saat layar hitam. Jadwal dan teks ada di `web/js/launch.js` (konstanta `T`, `K1`, `CALLOUTS`), gaya di `web/css/launch.css`.
 
 ## Catatan teknis
 

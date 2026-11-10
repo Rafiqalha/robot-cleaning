@@ -10,6 +10,9 @@ node_modules/
 
 # Keluaran sementara pembuat dokumen / perekam video
 docs_build/frames/
+docs_build/frames_launch/
+docs_build/stills/
+docs_build/launch_audio.*
 docs_build/qa/
 docs_build/img/
 docs_build/deck_img/
@@ -18,6 +21,9 @@ docs_build/report_img/
 
 # Video 1080p (40 MB) dapat dibuat ulang: python tools/record_demo.py
 docs/demo_S4.mp4
+
+# Video peluncuran 1080p60 (±30 MB) dapat dibuat ulang: python tools/record_launch.py
+docs/launch_cleanbot_30s.mp4
 
 # Sistem operasi / editor
 .DS_Store

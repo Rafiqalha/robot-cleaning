@@ -1,0 +1,29 @@
+scenario,scenario_name,config,label,success,cost,moves,cleans,expanded,generated,max_frontier,time_ms,state_space,visit_order,gap_pct
+S1,Sedikit Rintangan,bfs,BFS,True,23,20,3,270,271,29,0.521,272,3 > 2 > 1,0.0
+S1,Sedikit Rintangan,ucs,UCS,True,23,20,3,271,271,29,0.599,272,3 > 2 > 1,0.0
+S1,Sedikit Rintangan,astar_manhattan,A* (Manhattan),True,23,20,3,43,75,33,0.2,272,1 > 2 > 3,0.0
+S1,Sedikit Rintangan,astar_max,A* (Jarak-max),True,23,20,3,40,72,33,0.182,272,1 > 2 > 3,0.0
+S1,Sedikit Rintangan,astar_mst,A* (MST),True,23,20,3,50,80,30,0.316,272,1 > 3 > 2,0.0
+S1,Sedikit Rintangan,greedy_mst,Greedy,True,23,20,3,29,54,26,0.162,272,3 > 2 > 1,0.0
+S1,Sedikit Rintangan,nn,Nearest-Neighbor,True,23,20,3,0,0,0,0.04,272,1 > 3 > 2,0.0
+S2,Banyak Rintangan,bfs,BFS,True,21,18,3,190,191,21,0.261,192,1 > 2 > 3,0.0
+S2,Banyak Rintangan,ucs,UCS,True,21,18,3,191,191,21,0.366,192,1 > 2 > 3,0.0
+S2,Banyak Rintangan,astar_manhattan,A* (Manhattan),True,21,18,3,30,48,19,0.129,192,3 > 2 > 1,0.0
+S2,Banyak Rintangan,astar_max,A* (Jarak-max),True,21,18,3,29,48,20,0.147,192,3 > 2 > 1,0.0
+S2,Banyak Rintangan,astar_mst,A* (MST),True,21,18,3,43,76,33,0.226,192,2 > 3 > 1,0.0
+S2,Banyak Rintangan,greedy_mst,Greedy,True,21,18,3,24,47,24,0.138,192,1 > 2 > 3,0.0
+S2,Banyak Rintangan,nn,Nearest-Neighbor,True,21,18,3,0,0,0,0.032,192,3 > 1 > 2,0.0
+S3,Target Tersebar,bfs,BFS,True,31,26,5,1086,1087,90,1.734,1088,1 > 2 > 3 > 4 > 5,0.0
+S3,Target Tersebar,ucs,UCS,True,31,26,5,1087,1087,90,2.488,1088,1 > 2 > 3 > 4 > 5,0.0
+S3,Target Tersebar,astar_manhattan,A* (Manhattan),True,31,26,5,243,335,86,1.344,1088,5 > 1 > 2 > 3 > 4,0.0
+S3,Target Tersebar,astar_max,A* (Jarak-max),True,31,26,5,239,327,85,1.142,1088,5 > 1 > 2 > 3 > 4,0.0
+S3,Target Tersebar,astar_mst,A* (MST),True,31,26,5,144,257,113,0.803,1088,3 > 2 > 4 > 5 > 1,0.0
+S3,Target Tersebar,greedy_mst,Greedy,True,31,26,5,44,83,40,0.29,1088,1 > 5 > 4 > 2 > 3,0.0
+S3,Target Tersebar,nn,Nearest-Neighbor,True,31,26,5,0,0,0,0.085,1088,5 > 1 > 2 > 4 > 3,0.0
+S4,Kelas Penuh (Bonus),bfs,BFS,True,38,32,6,3254,3260,218,5.715,3264,4 > 1 > 2 > 3 > 6 > 5,0.0
+S4,Kelas Penuh (Bonus),ucs,UCS,True,38,32,6,3260,3262,218,9.058,3264,4 > 1 > 2 > 3 > 6 > 5,0.0
+S4,Kelas Penuh (Bonus),astar_manhattan,A* (Manhattan),True,38,32,6,431,654,209,2.292,3264,5 > 6 > 3 > 2 > 1 > 4,0.0
+S4,Kelas Penuh (Bonus),astar_max,A* (Jarak-max),True,38,32,6,332,556,212,1.646,3264,5 > 6 > 3 > 2 > 1 > 4,0.0
+S4,Kelas Penuh (Bonus),astar_mst,A* (MST),True,38,32,6,96,190,95,0.613,3264,5 > 6 > 3 > 2 > 1 > 4,0.0
+S4,Kelas Penuh (Bonus),greedy_mst,Greedy,True,42,36,6,62,122,61,0.401,3264,4 > 1 > 2 > 3 > 6 > 5,10.5
+S4,Kelas Penuh (Bonus),nn,Nearest-Neighbor,True,42,36,6,0,0,0,0.072,3264,4 > 5 > 1 > 2 > 3 > 6,10.5
