@@ -1,0 +1,60 @@
+/* Mode video peluncuran (?launch=1): tanpa panel HUD, hanya produk + anotasi bergaya gelembung percakapan. */
+body.launch #hud, body.launch #loader { display: none !important; }
+body.launch { background: #050507; }
+body.launch #view { filter: contrast(1.045) saturate(1.07); }
+
+#lv-root { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; transform-origin: 0 0; pointer-events: none; overflow: hidden; font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; color: #fff; z-index: 20; }
+#lv-root * { box-sizing: border-box; }
+.lv-layer { position: absolute; inset: 0; }
+#lv-vig { background: radial-gradient(120% 95% at 50% 46%, rgba(0,0,0,0) 52%, rgba(0,0,0,.34) 80%, rgba(0,0,0,.62) 100%); }
+#lv-dip { background: #000; opacity: 1; }
+#lv-shade { background: #040406; opacity: 0; }
+#lv-grain { background-repeat: repeat; background-size: 256px 256px; }
+#lv-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+#lv-lines path { fill: none; stroke-linecap: round; }
+
+/* titik (hotspot) */
+.lv-dot { position: absolute; left: 0; top: 0; width: 0; height: 0; will-change: transform, opacity; }
+.lv-dot i { position: absolute; left: -7px; top: -7px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px rgba(255,255,255,.22), 0 0 22px 4px var(--c); }
+.lv-dot b { position: absolute; left: -22px; top: -22px; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--c); opacity: .7; }
+
+/* label kecil saat tampilan awal (pin) */
+.lv-pin { position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 10px; padding: 9px 18px 9px 10px; border-radius: 999px; background: rgba(18,19,23,.66); border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,.4); font-size: 24px; font-weight: 600; letter-spacing: .01em; white-space: nowrap; will-change: transform, opacity; }
+.lv-pin em { font-style: normal; font: 600 16px/1 Consolas, "Courier New", monospace; letter-spacing: .08em; color: #111; background: var(--c); border-radius: 999px; padding: 6px 8px; }
+
+/* kartu penjelasan: gelembung percakapan */
+.lv-card { position: absolute; left: 0; top: 0; width: 560px; padding: 26px 32px 30px; border-radius: 32px; background: linear-gradient(180deg, rgba(38,40,47,.80), rgba(17,18,22,.82)); border: 1px solid rgba(255,255,255,.13); backdrop-filter: blur(20px) saturate(150%); box-shadow: 0 34px 90px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08); will-change: transform, opacity; }
+.lv-card::after { content: ""; position: absolute; top: calc(50% - 8px); width: 16px; height: 16px; background: rgba(30,32,38,.9); border: 1px solid rgba(255,255,255,.13); transform: rotate(45deg); }
+.lv-card.r::after { left: -9px; border-right: 0; border-top: 0; }
+.lv-card.l::after { right: -9px; border-left: 0; border-bottom: 0; }
+.lv-card .hd { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.lv-card .ic { width: 38px; height: 38px; flex: none; }
+.lv-card .tag { font: 600 16px/1 "Segoe UI Semibold", "Segoe UI", sans-serif; letter-spacing: .18em; text-transform: uppercase; color: var(--c); }
+.lv-card .no { margin-left: auto; font: 600 16px/1 Consolas, "Courier New", monospace; letter-spacing: .1em; color: rgba(255,255,255,.45); }
+.lv-card h4 { margin: 0 0 10px; font: 400 44px/1.08 Georgia, "Times New Roman", serif; letter-spacing: -.01em; }
+.lv-card p { margin: 0; min-height: 2.9em; font: 400 27px/1.42 "Segoe UI Variable Text", "Segoe UI", sans-serif; color: rgba(255,255,255,.82); }
+.lv-card p u { text-decoration: none; color: var(--c); font-weight: 600; }
+.lv-typing { display: flex; gap: 9px; height: 38px; align-items: center; position: absolute; left: 32px; bottom: 30px; }
+.lv-typing span { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,.7); }
+
+/* judul pembuka & penutup */
+.lv-title { position: absolute; left: 110px; bottom: 150px; will-change: transform, opacity; }
+.lv-title .kick { font: 600 16px/1 Consolas, "Courier New", monospace; letter-spacing: .34em; color: #27d4ff; margin-bottom: 20px; }
+.lv-title h1 { margin: 0; font: 400 168px/0.92 Georgia, "Times New Roman", serif; letter-spacing: -.035em; text-shadow: 0 8px 50px rgba(0,0,0,.55); }
+.lv-title p { margin: 24px 0 0; font: 300 36px/1.3 "Segoe UI Light", "Segoe UI", sans-serif; letter-spacing: .01em; color: rgba(255,255,255,.82); }
+.lv-title p b { font-weight: 600; color: #FF9466; }
+
+.lv-outro { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; will-change: opacity; }
+.lv-outro .ic { width: 96px; height: 96px; margin-bottom: 26px; }
+.lv-outro h2 { margin: 0; font: 400 142px/1 Georgia, "Times New Roman", serif; letter-spacing: -.03em; }
+.lv-outro .sub { margin-top: 20px; font: 300 38px/1.3 "Segoe UI Light", "Segoe UI", sans-serif; color: rgba(255,255,255,.85); }
+.lv-outro .chips { display: flex; gap: 14px; margin-top: 40px; }
+.lv-outro .chips span { padding: 11px 22px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); font: 600 21px/1 "Segoe UI", sans-serif; letter-spacing: .04em; }
+.lv-outro .foot { margin-top: 52px; font: 600 16px/1 Consolas, "Courier New", monospace; letter-spacing: .32em; color: rgba(255,255,255,.55); }
+
+/* kartu statistik di akhir */
+.lv-stats { position: absolute; left: 0; right: 0; bottom: 84px; display: flex; justify-content: center; gap: 26px; }
+.lv-stat { min-width: 400px; padding: 24px 34px 28px; border-radius: 30px; background: linear-gradient(180deg, rgba(38,40,47,.80), rgba(17,18,22,.84)); border: 1px solid rgba(255,255,255,.13); backdrop-filter: blur(20px) saturate(150%); box-shadow: 0 34px 90px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08); will-change: transform, opacity; }
+.lv-stat .num { font: 400 104px/1 Georgia, "Times New Roman", serif; letter-spacing: -.03em; color: var(--c); }
+.lv-stat .num small { font-size: 46px; margin-left: 6px; letter-spacing: 0; color: rgba(255,255,255,.9); }
+.lv-stat .lab { margin-top: 10px; font: 400 26px/1.3 "Segoe UI", sans-serif; color: rgba(255,255,255,.8); }

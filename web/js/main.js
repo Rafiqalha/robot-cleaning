@@ -73,6 +73,12 @@ async function boot() {
     room.update(dt, stage.camera);
   });
 
+  // Mode video peluncuran (?launch=live untuk pratinjau; ?launch=1 dikendalikan tools/record_launch.py): studio + anotasi tanpa HUD
+  if (params.has('launch')) {
+    const { initLaunch } = await import('./launch.js');
+    await initLaunch(app);
+  }
+
   let last = performance.now();
   const loop = (now) => {
     const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
